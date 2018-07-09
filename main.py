@@ -20,8 +20,9 @@ async def ping(ctx):
 async def echo(ctx, arg):
     await ctx.send(arg)
     
+#Changing this to be like newclass, so it'll add you the role once you've made it
 @bot.command()
-async def newrole(ctx, roleToAdd):
+async def newclass(ctx, roleToAdd):
     roleToAdd = roleToAdd.lower()
     guild = ctx.guild
     for role in guild.roles:
@@ -30,14 +31,17 @@ async def newrole(ctx, roleToAdd):
             return
     role = await guild.create_role(name=roleToAdd)
     await role.edit(mentionable=True)
-    await ctx.send("```" + "You have successfully created role '" + roleToAdd + "'. Calling .iam " + roleToAdd + " will add you to it." + "```")
-    
+    #add role to user, so they dont have to call another command
+    user = csx.message.author
+    await user.add_roles(role)
+    await ctx.send("```" + "Role " + roleToAdd + " has been create. And you have been added to the role.```")
+
 @bot.command()
 async def iam(ctx, roleToAdd):
     roleToAdd = roleToAdd.lower()
     role = discord.utils.get(ctx.guild.roles, name=roleToAdd)
     if role == None:
-        await ctx.send("```" + "Role '" + roleToAdd + "' does not exist. Calling .newrole " + roleToAdd +" will create it." + "```")
+        await ctx.send("```" + "Role '" + roleToAdd + "' does not exist. Call `.newclass` " + roleToAdd +" to create it." + "```")
         return
     user = ctx.message.author
     await user.add_roles(role)
@@ -66,7 +70,7 @@ async def whois(ctx, roleToCheck):
         await ctx.send("```" + "No members in role '" + roleToCheck + "'." + "```")
         return
     for members in membersOfRole:
-        memberString += members.name + "\n"
+        memberString += members.nick + "\n"
     await ctx.send("Members belonging to role `" + roleToCheck + "`:\n" + "```" + memberString + "```")
 
 @bot.command()

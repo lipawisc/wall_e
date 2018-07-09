@@ -10,7 +10,7 @@ It is a namesake of the lovable [Wall-E](https://en.wikipedia.org/wiki/WALL-E).
 
 * `.ping` - returns `pong!`
 * `.echo <arg>` - returns `<arg>`
-* `.newrole <arg>` - creates role `<arg>`
+* `.newclass <arg>` - creates role, and adds you to the role `<arg>`
 * `.iam <arg>` - adds you to role `<arg>`
 * `.iamn <arg>` - removes you from role `<arg>`
 * `.whois <arg>` - returns everyone who has role `<arg>`
